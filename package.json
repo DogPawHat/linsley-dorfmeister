@@ -1,5 +1,6 @@
 {
   "name": "linsley-dorfmeister",
+  "type": "module",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -12,13 +13,20 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@convex-dev/react-query": "0.0.0-alpha.6",
+    "@tanstack/react-query": "^5.59.16",
     "@tanstack/react-router": "^1.76.1",
+    "@tanstack/react-router-with-query": "^1.76.1",
     "@tanstack/start": "^1.76.1",
+    "convex": "^1.17.0",
+    "vinxi": "^0.4.3"
+  },
+  "devDependencies": {
     "@types/react": "npm:types-react@rc",
     "@types/react-dom": "npm:types-react-dom@rc",
-    "typescript": "^5.6.3",
-    "vinxi": "^0.4.3",
-    "vite": "^5.4.10"
+    "@vitejs/plugin-react": "^4.3.3",
+    "vite-tsconfig-paths": "^5.0.1",
+    "typescript": "^5.6.3"
   },
   "overrides": {
     "@types/react": "npm:types-react@rc",
