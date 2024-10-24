@@ -19,14 +19,16 @@
     "@tanstack/react-router-with-query": "^1.76.1",
     "@tanstack/start": "^1.76.1",
     "convex": "^1.17.0",
+    "react": "19.0.0-rc-1631855f-20241023",
+    "react-dom": "19.0.0-rc-1631855f-20241023",
     "vinxi": "^0.4.3"
   },
   "devDependencies": {
     "@types/react": "npm:types-react@rc",
     "@types/react-dom": "npm:types-react-dom@rc",
     "@vitejs/plugin-react": "^4.3.3",
-    "vite-tsconfig-paths": "^5.0.1",
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "vite-tsconfig-paths": "^5.0.1"
   },
   "overrides": {
     "@types/react": "npm:types-react@rc",

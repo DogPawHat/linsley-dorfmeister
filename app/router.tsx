@@ -5,7 +5,7 @@ import { ConvexQueryClient } from "@convex-dev/react-query";
 import { ConvexProvider } from "convex/react";
 import { routeTree } from "./routeTree.gen";
 import { NotFound } from "./components/NotFound";
-
+import { DefaultCatchBoundary } from "./components/DefaultCatchBoundary";
 export function createRouter() {
   if (typeof document !== "undefined") {
     notifyManager.setScheduler(window.requestAnimationFrame);
@@ -17,7 +17,7 @@ export function createRouter() {
   }
   const convexQueryClient = new ConvexQueryClient(CONVEX_URL);
 
-  const queryClient: QueryClient = new QueryClient({
+  const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
         queryKeyHashFn: convexQueryClient.hashFn(),
