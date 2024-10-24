@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(
-  "/_category-sidebar/products/$category/$subcategory/$product/"
+  "/_category-sidebar/products/$categoryId/$subCategoryId/$productId/"
 )({
   component: () => (
     <div>
