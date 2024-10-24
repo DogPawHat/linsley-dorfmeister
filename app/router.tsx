@@ -1,3 +1,5 @@
+import type * as React from "react";
+
 import { createRouter as createTanStackRouter } from "@tanstack/react-router";
 import { QueryClient, notifyManager } from "@tanstack/react-query";
 import { routerWithQueryClient } from "@tanstack/react-router-with-query";
@@ -34,9 +36,9 @@ export function createRouter() {
       defaultPreload: "intent",
       defaultErrorComponent: DefaultCatchBoundary,
       defaultNotFoundComponent: () => <NotFound />,
-      Wrap: ({ children }) => (
+      Wrap: (props: React.PropsWithChildren) => (
         <ConvexProvider client={convexQueryClient.convexClient}>
-          {children}
+          {props.children}
         </ConvexProvider>
       ),
     }),

@@ -6,6 +6,33 @@ body {
   font-family: Arial, sans-serif;
 }
 
+@font-face {
+  font-family: "helvetica-lt-pro";
+  src: url("/fonts/HelveticaNeueLTPro-Lt.woff") format("woff");
+}
+
+@font-face {
+  font-family: "helvetica-lt-pro-55-roman";
+  src: url("/fonts/HelveticaNeueLTPro-Md.woff") format("woff");
+}
+
+@font-face {
+  font-family: "futura-lt-pro-bold-condensed";
+  src: url("/fonts/FuturaLTPro-BoldCond.woff2") format("woff2");
+}
+
+.__variable-helvetica-lt-pro {
+  --font-helvetica: "helvetica-lt-pro";
+}
+
+.__variable-helvetica-lt-pro-55-roman {
+  --font-helvetica-roman: "helvetica-lt-pro-55-roman";
+}
+
+.__variable-futura-lt-pro-bold-condensed {
+  --font-futura: "futura-lt-pro-bold-condensed";
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -73,7 +100,10 @@ body {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground flex flex-col antialiased;
+    --font-helvetica: "helvetica-lt-pro";
+    --font-helvetica-roman: "helvetica-lt-pro-55-roman";
+    --font-futura: "futura-lt-pro-bold-condensed";
   }
 }
 
