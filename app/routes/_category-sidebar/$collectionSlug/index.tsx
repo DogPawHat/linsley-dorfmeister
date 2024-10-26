@@ -1,16 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { convexQuery } from "@convex-dev/react-query";
-import {
-  useSuspenseQuery,
-  type UseSuspenseQueryOptions,
-} from "@tanstack/react-query";
 import { api } from "convex/_generated/api";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
-export const Route = createFileRoute("/_category-sidebar/")({
-  loader: async ({ context }) => {
+export const Route = createFileRoute("/_category-sidebar/$collectionSlug/")({
+  loader: async ({ context, params }) => {
     Promise.all([
       context.queryClient.ensureQueryData(
-        convexQuery(api.collections.getCollectionWithCategories, {})
+        convexQuery(api.collections.getCollectionDetailsBySlug, {
+          slug: params.collectionSlug,
+        })
       ),
       context.queryClient.ensureQueryData(
         convexQuery(api.collections.getProductCount, {})
@@ -20,26 +19,29 @@ export const Route = createFileRoute("/_category-sidebar/")({
   component: Home,
 });
 
-export default function Home() {
+function Home() {
+  let imageCount = 0;
+  const { collectionSlug } = Route.useParams();
   const { data: collections } = useSuspenseQuery(
-    convexQuery(api.collections.getCollectionWithCategories, {})
+    convexQuery(api.collections.getCollectionDetailsBySlug, {
+      slug: collectionSlug,
+    })
   );
   const { data: productCount } = useSuspenseQuery(
     convexQuery(api.collections.getProductCount, {})
   );
-  let imageCount = 0;
 
+
+  
   return (
     <div className="w-full p-4">
-      <div className="mb-2 w-full flex-grow border-b-[1px] border-green-800 text-sm font-semibold text-black">
-        Explore {productCount.toLocaleString()} products
-      </div>
       {collections.map((collection) => (
         <div key={collection.name}>
           <h2 className="text-xl font-semibold">{collection.name}</h2>
           <div className="flex flex-row flex-wrap justify-center gap-2 border-b-2 py-4 sm:justify-start">
             {collection.categories.map((category) => (
               <Link
+                prefetch={true}
                 key={category.name}
                 className="flex w-[125px] flex-col items-center text-center"
                 href={`/products/${category.slug}`}
@@ -47,7 +49,7 @@ export default function Home() {
                 <img
                   loading={imageCount++ < 15 ? "eager" : "lazy"}
                   decoding="sync"
-                  src={category.imageUrl ?? "/placeholder.svg"}
+                  src={category.image_url ?? "/placeholder.svg"}
                   alt={`A small picture of ${category.name}`}
                   className="mb-2 h-14 w-14 border hover:bg-yellow-200"
                   width={48}
@@ -60,5 +62,6 @@ export default function Home() {
         </div>
       ))}
     </div>
+  )
   );
 }

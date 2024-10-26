@@ -54,7 +54,7 @@ function RootDocument(props: React.PropsWithChildren) {
       <Head>
         <Meta />
       </Head>
-      <Body>
+      <Body className="dorfmeister-linsley__body--font-helvetica dorfmeister-linsley__body--font-helvetica-roman dorfmeister-linsley__body--font-futura flex flex-col antialiased">
         <div>
           <header className="z-10 flex flex-grow items-center justify-between gap-4 border-b-2 border-yellow-300 bg-background p-2 pb-[4px] pt-2 font-futura sm:flex-row sm:p-4 sm:pb-[4px] sm:pt-0">
             <div className="flex flex-grow flex-col">
@@ -74,7 +74,7 @@ function RootDocument(props: React.PropsWithChildren) {
               </div>
               <div className="flex w-full flex-col items-start justify-center gap-2 sm:w-auto sm:flex-row sm:items-center">
                 <Link to="/" className="text-4xl font-bold text-green-800">
-                  Dorfmeister&Linsley
+                  DorfMEISTER-LINSEY
                 </Link>
                 <div className="items flex w-full flex-row items-center justify-between gap-4">
                   {/* <div className="mx-0 flex-grow sm:mx-auto sm:flex-grow-0">
@@ -112,50 +112,46 @@ function RootDocument(props: React.PropsWithChildren) {
               </div>
             </div>
           </header>
-          <footer className="flex h-[8px] flex-col items-center justify-between space-y-2 border-t border-gray-400 bg-background px-4 font-helvetica text-[11px] sm:h-6 sm:flex-row sm:space-y-0">
-            <div className="flex flex-wrap justify-center space-x-2 pt-2 sm:justify-start">
-              <span className="hover:bg-yellow-100 hover:underline">Home</span>
-              <span>|</span>
-              <span className="hover:bg-yellow-100 hover:underline">
-                Location
-              </span>
-              <span>|</span>
-              <span className="hover:bg-yellow-100 hover:underline">
-                Returns
-              </span>
-              <span>|</span>
-              <span className="hover:bg-yellow-100 hover:underline">
-                Careers
-              </span>
-              <span>|</span>
-              <span className="hover:bg-yellow-100 hover:underline">
-                Mobile App
-              </span>
-              <span>|</span>
-              <span className="hover:bg-yellow-100 hover:underline">
-                Solidworks Add-In
-              </span>
-              <span>|</span>
-              <span className="hover:bg-yellow-100 hover:underline">Help</span>
-              <span>|</span>
-              <span className="hover:bg-yellow-100 hover:underline">
-                Settings
-              </span>
-            </div>
-            <div className="text-center sm:text-right">
-              By using this website, you agree to check out the{" "}
-              <a
-                href="https://github.com/dogpawhat/linsey-dorfmeister"
-                className="font-bold hover:underline"
-                target="_blank"
-              >
-                Source Code
-              </a>
-            </div>
-          </footer>
 
           {props.children}
         </div>
+        <footer className="flex h-[8px] flex-col items-center justify-between space-y-2 border-t border-gray-400 bg-background px-4 font-helvetica text-[11px] sm:h-6 sm:flex-row sm:space-y-0">
+          <div className="flex flex-wrap justify-center space-x-2 pt-2 sm:justify-start">
+            <span className="hover:bg-yellow-100 hover:underline">Home</span>
+            <span>|</span>
+            <span className="hover:bg-yellow-100 hover:underline">
+              Location
+            </span>
+            <span>|</span>
+            <span className="hover:bg-yellow-100 hover:underline">Returns</span>
+            <span>|</span>
+            <span className="hover:bg-yellow-100 hover:underline">Careers</span>
+            <span>|</span>
+            <span className="hover:bg-yellow-100 hover:underline">
+              Mobile App
+            </span>
+            <span>|</span>
+            <span className="hover:bg-yellow-100 hover:underline">
+              Solidworks Add-In
+            </span>
+            <span>|</span>
+            <span className="hover:bg-yellow-100 hover:underline">Help</span>
+            <span>|</span>
+            <span className="hover:bg-yellow-100 hover:underline">
+              Settings
+            </span>
+          </div>
+          <div className="text-center sm:text-right">
+            By using this website, you agree to check out the{" "}
+            <a
+              href="https://github.com/dogpawhat/linsey-dorfmeister"
+              className="font-bold hover:underline"
+              target="_blank"
+            >
+              Source Code
+            </a>
+          </div>
+        </footer>
         <ScrollRestoration />
         <Scripts />
       </Body>

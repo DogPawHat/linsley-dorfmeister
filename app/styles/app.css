@@ -21,15 +21,15 @@ body {
   src: url("/fonts/FuturaLTPro-BoldCond.woff2") format("woff2");
 }
 
-.__variable-helvetica-lt-pro {
+.dorfmeister-linsley__body--font-helvetica {
   --font-helvetica: "helvetica-lt-pro";
 }
 
-.__variable-helvetica-lt-pro-55-roman {
-  --font-helvetica-roman: "helvetica-lt-pro-55-roman";
+.dorfmeister-linsley__body--font-helvetica-roman {
+  --font-helvetica: "helvetica-lt-pro-55-roman";
 }
 
-.__variable-futura-lt-pro-bold-condensed {
+.dorfmeister-linsley__body--font-futura {
   --font-futura: "futura-lt-pro-bold-condensed";
 }
 
@@ -100,13 +100,16 @@ body {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground flex flex-col antialiased;
-    --font-helvetica: "helvetica-lt-pro";
-    --font-helvetica-roman: "helvetica-lt-pro-55-roman";
-    --font-futura: "futura-lt-pro-bold-condensed";
+    @apply bg-background text-foreground;
+  }
+
+  /* Can't pass the classes to the body tag via tanstack start. seems to be a react 19 feature. */
+  #root {
+    @apply dorfmeister-linsley__body--font-helvetica dorfmeister-linsley__body--font-helvetica-roman dorfmeister-linsley__body--font-futura flex flex-col antialiased;
   }
 }
 
+input[type="color"],
 input[type="color"],
 input[type="date"],
 input[type="datetime"],

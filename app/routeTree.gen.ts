@@ -12,17 +12,31 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as CategorySidebarImport } from './routes/_category-sidebar'
+import { Route as OrderIndexImport } from './routes/order/index'
+import { Route as OrderHistoryIndexImport } from './routes/order-history/index'
 import { Route as CategorySidebarIndexImport } from './routes/_category-sidebar/index'
-import { Route as CategorySidebarCollectionIdIndexImport } from './routes/_category-sidebar/$collectionId/index'
+import { Route as CategorySidebarCollectionSlugIndexImport } from './routes/_category-sidebar/$collectionSlug/index'
 import { Route as CategorySidebarProductsCategoryIdImport } from './routes/_category-sidebar/products/$categoryId'
-import { Route as CategorySidebarProductsCategoryIdIndexImport } from './routes/_category-sidebar/products/$categoryId/index'
-import { Route as CategorySidebarProductsCategoryIdSubCategoryIdIndexImport } from './routes/_category-sidebar/products/$categoryId/$subCategoryId/index'
-import { Route as CategorySidebarProductsCategoryIdSubCategoryIdProductIdIndexImport } from './routes/_category-sidebar/products/$categoryId/$subCategoryId/$productId/index'
+import { Route as CategorySidebarProductsCategorySlugIndexImport } from './routes/_category-sidebar/products/$categorySlug/index'
+import { Route as CategorySidebarProductsCategorySlugSubCategorySlugIndexImport } from './routes/_category-sidebar/products/$categorySlug/$subCategorySlug/index'
+import { Route as CategorySidebarProductsCategorySlugSubCategorySlugProductIdIndexImport } from './routes/_category-sidebar/products/$categorySlug/$subCategorySlug/$productId/index'
 
 // Create/Update Routes
 
 const CategorySidebarRoute = CategorySidebarImport.update({
   id: '/_category-sidebar',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const OrderIndexRoute = OrderIndexImport.update({
+  id: '/order/',
+  path: '/order/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const OrderHistoryIndexRoute = OrderHistoryIndexImport.update({
+  id: '/order-history/',
+  path: '/order-history/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -32,10 +46,10 @@ const CategorySidebarIndexRoute = CategorySidebarIndexImport.update({
   getParentRoute: () => CategorySidebarRoute,
 } as any)
 
-const CategorySidebarCollectionIdIndexRoute =
-  CategorySidebarCollectionIdIndexImport.update({
-    id: '/$collectionId/',
-    path: '/$collectionId/',
+const CategorySidebarCollectionSlugIndexRoute =
+  CategorySidebarCollectionSlugIndexImport.update({
+    id: '/$collectionSlug/',
+    path: '/$collectionSlug/',
     getParentRoute: () => CategorySidebarRoute,
   } as any)
 
@@ -46,26 +60,28 @@ const CategorySidebarProductsCategoryIdRoute =
     getParentRoute: () => CategorySidebarRoute,
   } as any)
 
-const CategorySidebarProductsCategoryIdIndexRoute =
-  CategorySidebarProductsCategoryIdIndexImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => CategorySidebarProductsCategoryIdRoute,
+const CategorySidebarProductsCategorySlugIndexRoute =
+  CategorySidebarProductsCategorySlugIndexImport.update({
+    id: '/products/$categorySlug/',
+    path: '/products/$categorySlug/',
+    getParentRoute: () => CategorySidebarRoute,
   } as any)
 
-const CategorySidebarProductsCategoryIdSubCategoryIdIndexRoute =
-  CategorySidebarProductsCategoryIdSubCategoryIdIndexImport.update({
-    id: '/$subCategoryId/',
-    path: '/$subCategoryId/',
-    getParentRoute: () => CategorySidebarProductsCategoryIdRoute,
+const CategorySidebarProductsCategorySlugSubCategorySlugIndexRoute =
+  CategorySidebarProductsCategorySlugSubCategorySlugIndexImport.update({
+    id: '/products/$categorySlug/$subCategorySlug/',
+    path: '/products/$categorySlug/$subCategorySlug/',
+    getParentRoute: () => CategorySidebarRoute,
   } as any)
 
-const CategorySidebarProductsCategoryIdSubCategoryIdProductIdIndexRoute =
-  CategorySidebarProductsCategoryIdSubCategoryIdProductIdIndexImport.update({
-    id: '/$subCategoryId/$productId/',
-    path: '/$subCategoryId/$productId/',
-    getParentRoute: () => CategorySidebarProductsCategoryIdRoute,
-  } as any)
+const CategorySidebarProductsCategorySlugSubCategorySlugProductIdIndexRoute =
+  CategorySidebarProductsCategorySlugSubCategorySlugProductIdIndexImport.update(
+    {
+      id: '/products/$categorySlug/$subCategorySlug/$productId/',
+      path: '/products/$categorySlug/$subCategorySlug/$productId/',
+      getParentRoute: () => CategorySidebarRoute,
+    } as any,
+  )
 
 // Populate the FileRoutesByPath interface
 
@@ -85,6 +101,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CategorySidebarIndexImport
       parentRoute: typeof CategorySidebarImport
     }
+    '/order-history/': {
+      id: '/order-history/'
+      path: '/order-history'
+      fullPath: '/order-history'
+      preLoaderRoute: typeof OrderHistoryIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/order/': {
+      id: '/order/'
+      path: '/order'
+      fullPath: '/order'
+      preLoaderRoute: typeof OrderIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/_category-sidebar/products/$categoryId': {
       id: '/_category-sidebar/products/$categoryId'
       path: '/products/$categoryId'
@@ -92,71 +122,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CategorySidebarProductsCategoryIdImport
       parentRoute: typeof CategorySidebarImport
     }
-    '/_category-sidebar/$collectionId/': {
-      id: '/_category-sidebar/$collectionId/'
-      path: '/$collectionId'
-      fullPath: '/$collectionId'
-      preLoaderRoute: typeof CategorySidebarCollectionIdIndexImport
+    '/_category-sidebar/$collectionSlug/': {
+      id: '/_category-sidebar/$collectionSlug/'
+      path: '/$collectionSlug'
+      fullPath: '/$collectionSlug'
+      preLoaderRoute: typeof CategorySidebarCollectionSlugIndexImport
       parentRoute: typeof CategorySidebarImport
     }
-    '/_category-sidebar/products/$categoryId/': {
-      id: '/_category-sidebar/products/$categoryId/'
-      path: '/'
-      fullPath: '/products/$categoryId/'
-      preLoaderRoute: typeof CategorySidebarProductsCategoryIdIndexImport
-      parentRoute: typeof CategorySidebarProductsCategoryIdImport
+    '/_category-sidebar/products/$categorySlug/': {
+      id: '/_category-sidebar/products/$categorySlug/'
+      path: '/products/$categorySlug'
+      fullPath: '/products/$categorySlug'
+      preLoaderRoute: typeof CategorySidebarProductsCategorySlugIndexImport
+      parentRoute: typeof CategorySidebarImport
     }
-    '/_category-sidebar/products/$categoryId/$subCategoryId/': {
-      id: '/_category-sidebar/products/$categoryId/$subCategoryId/'
-      path: '/$subCategoryId'
-      fullPath: '/products/$categoryId/$subCategoryId'
-      preLoaderRoute: typeof CategorySidebarProductsCategoryIdSubCategoryIdIndexImport
-      parentRoute: typeof CategorySidebarProductsCategoryIdImport
+    '/_category-sidebar/products/$categorySlug/$subCategorySlug/': {
+      id: '/_category-sidebar/products/$categorySlug/$subCategorySlug/'
+      path: '/products/$categorySlug/$subCategorySlug'
+      fullPath: '/products/$categorySlug/$subCategorySlug'
+      preLoaderRoute: typeof CategorySidebarProductsCategorySlugSubCategorySlugIndexImport
+      parentRoute: typeof CategorySidebarImport
     }
-    '/_category-sidebar/products/$categoryId/$subCategoryId/$productId/': {
-      id: '/_category-sidebar/products/$categoryId/$subCategoryId/$productId/'
-      path: '/$subCategoryId/$productId'
-      fullPath: '/products/$categoryId/$subCategoryId/$productId'
-      preLoaderRoute: typeof CategorySidebarProductsCategoryIdSubCategoryIdProductIdIndexImport
-      parentRoute: typeof CategorySidebarProductsCategoryIdImport
+    '/_category-sidebar/products/$categorySlug/$subCategorySlug/$productId/': {
+      id: '/_category-sidebar/products/$categorySlug/$subCategorySlug/$productId/'
+      path: '/products/$categorySlug/$subCategorySlug/$productId'
+      fullPath: '/products/$categorySlug/$subCategorySlug/$productId'
+      preLoaderRoute: typeof CategorySidebarProductsCategorySlugSubCategorySlugProductIdIndexImport
+      parentRoute: typeof CategorySidebarImport
     }
   }
 }
 
 // Create and export the route tree
 
-interface CategorySidebarProductsCategoryIdRouteChildren {
-  CategorySidebarProductsCategoryIdIndexRoute: typeof CategorySidebarProductsCategoryIdIndexRoute
-  CategorySidebarProductsCategoryIdSubCategoryIdIndexRoute: typeof CategorySidebarProductsCategoryIdSubCategoryIdIndexRoute
-  CategorySidebarProductsCategoryIdSubCategoryIdProductIdIndexRoute: typeof CategorySidebarProductsCategoryIdSubCategoryIdProductIdIndexRoute
-}
-
-const CategorySidebarProductsCategoryIdRouteChildren: CategorySidebarProductsCategoryIdRouteChildren =
-  {
-    CategorySidebarProductsCategoryIdIndexRoute:
-      CategorySidebarProductsCategoryIdIndexRoute,
-    CategorySidebarProductsCategoryIdSubCategoryIdIndexRoute:
-      CategorySidebarProductsCategoryIdSubCategoryIdIndexRoute,
-    CategorySidebarProductsCategoryIdSubCategoryIdProductIdIndexRoute:
-      CategorySidebarProductsCategoryIdSubCategoryIdProductIdIndexRoute,
-  }
-
-const CategorySidebarProductsCategoryIdRouteWithChildren =
-  CategorySidebarProductsCategoryIdRoute._addFileChildren(
-    CategorySidebarProductsCategoryIdRouteChildren,
-  )
-
 interface CategorySidebarRouteChildren {
   CategorySidebarIndexRoute: typeof CategorySidebarIndexRoute
-  CategorySidebarProductsCategoryIdRoute: typeof CategorySidebarProductsCategoryIdRouteWithChildren
-  CategorySidebarCollectionIdIndexRoute: typeof CategorySidebarCollectionIdIndexRoute
+  CategorySidebarProductsCategoryIdRoute: typeof CategorySidebarProductsCategoryIdRoute
+  CategorySidebarCollectionSlugIndexRoute: typeof CategorySidebarCollectionSlugIndexRoute
+  CategorySidebarProductsCategorySlugIndexRoute: typeof CategorySidebarProductsCategorySlugIndexRoute
+  CategorySidebarProductsCategorySlugSubCategorySlugIndexRoute: typeof CategorySidebarProductsCategorySlugSubCategorySlugIndexRoute
+  CategorySidebarProductsCategorySlugSubCategorySlugProductIdIndexRoute: typeof CategorySidebarProductsCategorySlugSubCategorySlugProductIdIndexRoute
 }
 
 const CategorySidebarRouteChildren: CategorySidebarRouteChildren = {
   CategorySidebarIndexRoute: CategorySidebarIndexRoute,
   CategorySidebarProductsCategoryIdRoute:
-    CategorySidebarProductsCategoryIdRouteWithChildren,
-  CategorySidebarCollectionIdIndexRoute: CategorySidebarCollectionIdIndexRoute,
+    CategorySidebarProductsCategoryIdRoute,
+  CategorySidebarCollectionSlugIndexRoute:
+    CategorySidebarCollectionSlugIndexRoute,
+  CategorySidebarProductsCategorySlugIndexRoute:
+    CategorySidebarProductsCategorySlugIndexRoute,
+  CategorySidebarProductsCategorySlugSubCategorySlugIndexRoute:
+    CategorySidebarProductsCategorySlugSubCategorySlugIndexRoute,
+  CategorySidebarProductsCategorySlugSubCategorySlugProductIdIndexRoute:
+    CategorySidebarProductsCategorySlugSubCategorySlugProductIdIndexRoute,
 }
 
 const CategorySidebarRouteWithChildren = CategorySidebarRoute._addFileChildren(
@@ -166,30 +185,37 @@ const CategorySidebarRouteWithChildren = CategorySidebarRoute._addFileChildren(
 export interface FileRoutesByFullPath {
   '': typeof CategorySidebarRouteWithChildren
   '/': typeof CategorySidebarIndexRoute
-  '/products/$categoryId': typeof CategorySidebarProductsCategoryIdRouteWithChildren
-  '/$collectionId': typeof CategorySidebarCollectionIdIndexRoute
-  '/products/$categoryId/': typeof CategorySidebarProductsCategoryIdIndexRoute
-  '/products/$categoryId/$subCategoryId': typeof CategorySidebarProductsCategoryIdSubCategoryIdIndexRoute
-  '/products/$categoryId/$subCategoryId/$productId': typeof CategorySidebarProductsCategoryIdSubCategoryIdProductIdIndexRoute
+  '/order-history': typeof OrderHistoryIndexRoute
+  '/order': typeof OrderIndexRoute
+  '/products/$categoryId': typeof CategorySidebarProductsCategoryIdRoute
+  '/$collectionSlug': typeof CategorySidebarCollectionSlugIndexRoute
+  '/products/$categorySlug': typeof CategorySidebarProductsCategorySlugIndexRoute
+  '/products/$categorySlug/$subCategorySlug': typeof CategorySidebarProductsCategorySlugSubCategorySlugIndexRoute
+  '/products/$categorySlug/$subCategorySlug/$productId': typeof CategorySidebarProductsCategorySlugSubCategorySlugProductIdIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof CategorySidebarIndexRoute
-  '/$collectionId': typeof CategorySidebarCollectionIdIndexRoute
-  '/products/$categoryId': typeof CategorySidebarProductsCategoryIdIndexRoute
-  '/products/$categoryId/$subCategoryId': typeof CategorySidebarProductsCategoryIdSubCategoryIdIndexRoute
-  '/products/$categoryId/$subCategoryId/$productId': typeof CategorySidebarProductsCategoryIdSubCategoryIdProductIdIndexRoute
+  '/order-history': typeof OrderHistoryIndexRoute
+  '/order': typeof OrderIndexRoute
+  '/products/$categoryId': typeof CategorySidebarProductsCategoryIdRoute
+  '/$collectionSlug': typeof CategorySidebarCollectionSlugIndexRoute
+  '/products/$categorySlug': typeof CategorySidebarProductsCategorySlugIndexRoute
+  '/products/$categorySlug/$subCategorySlug': typeof CategorySidebarProductsCategorySlugSubCategorySlugIndexRoute
+  '/products/$categorySlug/$subCategorySlug/$productId': typeof CategorySidebarProductsCategorySlugSubCategorySlugProductIdIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/_category-sidebar': typeof CategorySidebarRouteWithChildren
   '/_category-sidebar/': typeof CategorySidebarIndexRoute
-  '/_category-sidebar/products/$categoryId': typeof CategorySidebarProductsCategoryIdRouteWithChildren
-  '/_category-sidebar/$collectionId/': typeof CategorySidebarCollectionIdIndexRoute
-  '/_category-sidebar/products/$categoryId/': typeof CategorySidebarProductsCategoryIdIndexRoute
-  '/_category-sidebar/products/$categoryId/$subCategoryId/': typeof CategorySidebarProductsCategoryIdSubCategoryIdIndexRoute
-  '/_category-sidebar/products/$categoryId/$subCategoryId/$productId/': typeof CategorySidebarProductsCategoryIdSubCategoryIdProductIdIndexRoute
+  '/order-history/': typeof OrderHistoryIndexRoute
+  '/order/': typeof OrderIndexRoute
+  '/_category-sidebar/products/$categoryId': typeof CategorySidebarProductsCategoryIdRoute
+  '/_category-sidebar/$collectionSlug/': typeof CategorySidebarCollectionSlugIndexRoute
+  '/_category-sidebar/products/$categorySlug/': typeof CategorySidebarProductsCategorySlugIndexRoute
+  '/_category-sidebar/products/$categorySlug/$subCategorySlug/': typeof CategorySidebarProductsCategorySlugSubCategorySlugIndexRoute
+  '/_category-sidebar/products/$categorySlug/$subCategorySlug/$productId/': typeof CategorySidebarProductsCategorySlugSubCategorySlugProductIdIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -197,36 +223,47 @@ export interface FileRouteTypes {
   fullPaths:
     | ''
     | '/'
+    | '/order-history'
+    | '/order'
     | '/products/$categoryId'
-    | '/$collectionId'
-    | '/products/$categoryId/'
-    | '/products/$categoryId/$subCategoryId'
-    | '/products/$categoryId/$subCategoryId/$productId'
+    | '/$collectionSlug'
+    | '/products/$categorySlug'
+    | '/products/$categorySlug/$subCategorySlug'
+    | '/products/$categorySlug/$subCategorySlug/$productId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/$collectionId'
+    | '/order-history'
+    | '/order'
     | '/products/$categoryId'
-    | '/products/$categoryId/$subCategoryId'
-    | '/products/$categoryId/$subCategoryId/$productId'
+    | '/$collectionSlug'
+    | '/products/$categorySlug'
+    | '/products/$categorySlug/$subCategorySlug'
+    | '/products/$categorySlug/$subCategorySlug/$productId'
   id:
     | '__root__'
     | '/_category-sidebar'
     | '/_category-sidebar/'
+    | '/order-history/'
+    | '/order/'
     | '/_category-sidebar/products/$categoryId'
-    | '/_category-sidebar/$collectionId/'
-    | '/_category-sidebar/products/$categoryId/'
-    | '/_category-sidebar/products/$categoryId/$subCategoryId/'
-    | '/_category-sidebar/products/$categoryId/$subCategoryId/$productId/'
+    | '/_category-sidebar/$collectionSlug/'
+    | '/_category-sidebar/products/$categorySlug/'
+    | '/_category-sidebar/products/$categorySlug/$subCategorySlug/'
+    | '/_category-sidebar/products/$categorySlug/$subCategorySlug/$productId/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   CategorySidebarRoute: typeof CategorySidebarRouteWithChildren
+  OrderHistoryIndexRoute: typeof OrderHistoryIndexRoute
+  OrderIndexRoute: typeof OrderIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   CategorySidebarRoute: CategorySidebarRouteWithChildren,
+  OrderHistoryIndexRoute: OrderHistoryIndexRoute,
+  OrderIndexRoute: OrderIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -241,7 +278,9 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/_category-sidebar"
+        "/_category-sidebar",
+        "/order-history/",
+        "/order/"
       ]
     },
     "/_category-sidebar": {
@@ -249,37 +288,41 @@ export const routeTree = rootRoute
       "children": [
         "/_category-sidebar/",
         "/_category-sidebar/products/$categoryId",
-        "/_category-sidebar/$collectionId/"
+        "/_category-sidebar/$collectionSlug/",
+        "/_category-sidebar/products/$categorySlug/",
+        "/_category-sidebar/products/$categorySlug/$subCategorySlug/",
+        "/_category-sidebar/products/$categorySlug/$subCategorySlug/$productId/"
       ]
     },
     "/_category-sidebar/": {
       "filePath": "_category-sidebar/index.tsx",
       "parent": "/_category-sidebar"
     },
+    "/order-history/": {
+      "filePath": "order-history/index.tsx"
+    },
+    "/order/": {
+      "filePath": "order/index.tsx"
+    },
     "/_category-sidebar/products/$categoryId": {
       "filePath": "_category-sidebar/products/$categoryId.tsx",
-      "parent": "/_category-sidebar",
-      "children": [
-        "/_category-sidebar/products/$categoryId/",
-        "/_category-sidebar/products/$categoryId/$subCategoryId/",
-        "/_category-sidebar/products/$categoryId/$subCategoryId/$productId/"
-      ]
-    },
-    "/_category-sidebar/$collectionId/": {
-      "filePath": "_category-sidebar/$collectionId/index.tsx",
       "parent": "/_category-sidebar"
     },
-    "/_category-sidebar/products/$categoryId/": {
-      "filePath": "_category-sidebar/products/$categoryId/index.tsx",
-      "parent": "/_category-sidebar/products/$categoryId"
+    "/_category-sidebar/$collectionSlug/": {
+      "filePath": "_category-sidebar/$collectionSlug/index.tsx",
+      "parent": "/_category-sidebar"
     },
-    "/_category-sidebar/products/$categoryId/$subCategoryId/": {
-      "filePath": "_category-sidebar/products/$categoryId/$subCategoryId/index.tsx",
-      "parent": "/_category-sidebar/products/$categoryId"
+    "/_category-sidebar/products/$categorySlug/": {
+      "filePath": "_category-sidebar/products/$categorySlug/index.tsx",
+      "parent": "/_category-sidebar"
     },
-    "/_category-sidebar/products/$categoryId/$subCategoryId/$productId/": {
-      "filePath": "_category-sidebar/products/$categoryId/$subCategoryId/$productId/index.tsx",
-      "parent": "/_category-sidebar/products/$categoryId"
+    "/_category-sidebar/products/$categorySlug/$subCategorySlug/": {
+      "filePath": "_category-sidebar/products/$categorySlug/$subCategorySlug/index.tsx",
+      "parent": "/_category-sidebar"
+    },
+    "/_category-sidebar/products/$categorySlug/$subCategorySlug/$productId/": {
+      "filePath": "_category-sidebar/products/$categorySlug/$subCategorySlug/$productId/index.tsx",
+      "parent": "/_category-sidebar"
     }
   }
 }
