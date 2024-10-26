@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { convexQuery } from "@convex-dev/react-query";
 import { useSuspenseQuery } from "@tanstack/react-query";
+import { Image } from "@unpic/react";
+
 import { api } from "convex/_generated/api";
 
 export const Route = createFileRoute("/_category-sidebar/")({
@@ -41,7 +43,7 @@ export default function Home() {
                 className="flex w-[125px] flex-col items-center text-center"
                 href={`/products/${category.slug}`}
               >
-                <img
+                <Image
                   loading={imageCount++ < 15 ? "eager" : "lazy"}
                   decoding="sync"
                   src={category.imageUrl ?? "/placeholder.svg"}

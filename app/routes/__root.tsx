@@ -54,7 +54,7 @@ function RootDocument(props: React.PropsWithChildren) {
       <Head>
         <Meta />
       </Head>
-      <Body className="dorfmeister-linsley__body--font-helvetica dorfmeister-linsley__body--font-helvetica-roman dorfmeister-linsley__body--font-futura flex flex-col antialiased">
+      <Body>
         <div>
           <header className="z-10 flex flex-grow items-center justify-between gap-4 border-b-2 border-yellow-300 bg-background p-2 pb-[4px] pt-2 font-futura sm:flex-row sm:p-4 sm:pb-[4px] sm:pt-0">
             <div className="flex flex-grow flex-col">
