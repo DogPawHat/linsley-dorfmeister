@@ -28,8 +28,7 @@ export default function Sidebar() {
           {allCollections.map((collection) => (
             <li key={collection.slug} className="w-full">
               <Link
-                to={`/${collection.slug}`}
-                params={{ collectionSlug: collection.slug }}
+                to={`/`}
                 className="block w-full py-1 text-xs text-gray-800 hover:bg-yellow-100 hover:underline"
               >
                 {collection.name}

@@ -1,9 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { convexQuery } from "@convex-dev/react-query";
-import {
-  useSuspenseQuery,
-  type UseSuspenseQueryOptions,
-} from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { api } from "convex/_generated/api";
 
 export const Route = createFileRoute("/_category-sidebar/")({
