@@ -43,7 +43,7 @@ export default function Home() {
                 className="flex w-[125px] flex-col items-center text-center"
                 href={`/products/${category.slug}`}
               >
-                <Image
+                {/* <Image
                   loading={imageCount++ < 15 ? "eager" : "lazy"}
                   decoding="sync"
                   src={category.imageUrl ?? "/placeholder.svg"}
@@ -51,7 +51,7 @@ export default function Home() {
                   className="mb-2 h-14 w-14 border hover:bg-yellow-200"
                   width={48}
                   height={48}
-                />
+                /> */}
                 <span className="text-xs">{category.name}</span>
               </Link>
             ))}
