@@ -7,6 +7,7 @@ import {
   getOneFromOrThrow,
   getManyFrom,
 } from "convex-helpers/server/relationships";
+import { paginationOptsValidator } from "convex/server";
 
 import { ShardedCounter } from "@convex-dev/sharded-counter";
 
@@ -136,65 +137,63 @@ export const getProductCount = query({
   },
 });
 
-// export const getCategoryProductCountBySlug = query({
-//   args: {
-//     slug: v.string(),
-//   },
-//   handler: async (ctx, args) => {
-//     const category = await getCategoryBySlugHelper(ctx, args.slug);
+export const getSubcategoriesPaginatedImages = query({
+  args: {
+    paginationOpts: paginationOptsValidator,
+  },
+  handler: async (ctx, args) => {
+    const result = await ctx.db
+      .query("subcategories")
+      .withIndex("imageUrl")
+      .paginate(args.paginationOpts);
 
-//     const complexProducts = await asyncMap(
-//       getSubcollectionsByCategoryIdHelper(ctx, category._id),
-//       async (subcollection) =>
-//         asyncMap(
-//           getSubcategoryBySubcollectionIdHelper(ctx, subcollection._id),
-//           async (subcategory) =>
-//             await getProductsBySubcategoryIdHelper(ctx, subcategory._id)
-//         )
-//     );
+    const imageUrlSet = new Set(
+      result.page.map((subcategory) => subcategory.imageUrl)
+    );
 
-//     const products = complexProducts.flat().flat();
+    return {
+      ...result,
+      page: Array.from(imageUrlSet),
+    };
+  },
+});
 
-//     return products.length;
-//   },
-// });
+export const getCategoriesPaginatedImages = query({
+  args: {
+    paginationOpts: paginationOptsValidator,
+  },
+  handler: async (ctx, args) => {
+    const result = await ctx.db
+      .query("categories")
+      .withIndex("imageUrl")
+      .paginate(args.paginationOpts);
 
-// export const getSubcategoryProductCountBySlug = query({
-//   args: {
-//     slug: v.string(),
-//   },
-//   handler: async (ctx, args) => {
-//     const subcategory = await getSubcategoryBySlugHelper(ctx, args.slug);
+    const imageUrlSet = new Set(
+      result.page.map((category) => category.imageUrl)
+    );
 
-//     const products = await getProductsBySubcategoryIdHelper(
-//       ctx,
-//       subcategory._id
-//     );
+    return {
+      ...result,
+      page: Array.from(imageUrlSet),
+    };
+  },
+});
 
-//     return products.length;
-//   },
-// });
+export const getProductsPaginatedImages = query({
+  args: {
+    paginationOpts: paginationOptsValidator,
+  },
+  handler: async (ctx, args) => {
+    const result = await ctx.db
+      .query("products")
+      .withIndex("imageUrl")
+      .paginate(args.paginationOpts);
 
-// export const getSearchResults = query({
-//   handler: async (ctx, searchTerm: string) => {
-//     let results;
-//     if (searchTerm.length <= 2) {
-//       results = await ctx.db
-//         .query("products")
-//         .filter((q) => q.ilike(q.field("name"), `${searchTerm}%`))
-//         .take(5);
-//     } else {
-//       const formattedSearchTerm = searchTerm
-//         .split(" ")
-//         .filter((term) => term.trim() !== "")
-//         .map((term) => `${term}:*`)
-//         .join(" & ");
+    const imageUrlSet = new Set(result.page.map((product) => product.imageUrl));
 
-//       results = await ctx.db
-//         .query("products")
-//         .filter((q) => q.textSearch(q.field("name"), formattedSearchTerm))
-//         .take(5);
-//     }
-//     return results;
-//   },
-// });
+    return {
+      ...result,
+      page: Array.from(imageUrlSet),
+    };
+  },
+});

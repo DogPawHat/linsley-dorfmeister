@@ -12,6 +12,7 @@ export default defineSchema({
     name: v.string(),
     slug: v.string(),
   })
+    .index("imageUrl", ["imageUrl"])
     .index("collectionId", ["collectionId"])
     .index("slug", ["slug"]),
   subcollections: defineTable({
@@ -24,6 +25,7 @@ export default defineSchema({
     slug: v.string(),
     subCollectionId: v.id("subcollections"),
   })
+    .index("imageUrl", ["imageUrl"])
     .index("subCollectionId", ["subCollectionId"])
     .index("slug", ["slug"]),
   products: defineTable({
@@ -36,6 +38,7 @@ export default defineSchema({
   })
     .index("subCategoryId", ["subCategoryId"])
     .index("slug", ["slug"])
+    .index("imageUrl", ["imageUrl"])
     .searchIndex("search_name", {
       searchField: "name",
     }),
