@@ -38,7 +38,7 @@ export default function Home() {
           <div className="flex flex-row flex-wrap justify-center gap-2 border-b-2 py-4 sm:justify-start">
             {collection.categories.map((category) => {
               const qs = new URLSearchParams([
-                ["source", category.imageUrl ?? "/placeholder.svg"],
+                ["url", category.imageUrl ?? "/placeholder.svg"],
                 ["w", "48"],
                 ["h", "48"],
                 ["q", "65"],
